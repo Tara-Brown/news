@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "accounts",
     "pages",
     "articles",
+    "likes",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
