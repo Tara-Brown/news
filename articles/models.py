@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
+from likes.models import Like
 
 class Article(models.Model):
     title = models.CharField(max_length = 255)
@@ -15,6 +16,13 @@ class Article(models.Model):
         return self.title
     def get_absolute_url(self):
         return reverse("article_detail", kwargs={"pk": self.pk})
+    
+    def likes_count(self):
+        return Like.objects.filter(
+            content_type__app_label='articles',
+            content_type__model='article',
+            object_id=self.id
+        ).count()
 
 class Comment(models.Model): # new
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
